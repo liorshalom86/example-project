@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "5001:5001"
+    volumes:
+      - app1_logs:/app/logs
+
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "5002:5001"
+    volumes:
+      - app2_logs:/app/logs
+
+  app3:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "5003:5001"
+    volumes:
+      - app3_logs:/app/logs
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: your_database_name
+    volumes:
+      - db_data:/var/lib/mysql
+      - db_logs:/var/log/mysql
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app1
+      - app2
+      - app3
+
+volumes:
+  app1_logs:
+  app2_logs:
+  app3_logs:
+  db_data:
+  db_logs:
