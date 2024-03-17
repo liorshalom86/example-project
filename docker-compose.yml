@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: lior
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db_data:/var/lib/mysql
+      - ./db_logs:/var/log/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   app1:
     build:
       context: .
@@ -28,16 +41,6 @@ services:
     volumes:
       - app3_logs:/app/logs
 
-  db:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: your_database_name
-    volumes:
-      - db_data:/var/lib/mysql
-      - db_logs:/var/log/mysql
 
   nginx:
     build:

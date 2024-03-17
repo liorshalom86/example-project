@@ -2,9 +2,10 @@ FROM python:3.9
 
 WORKDIR /app
 
-COPY . /app
+COPY myApp.py /app/
+COPY requirements.txt /app/
 
-RUN pip install flask
+RUN pip install -r requirements.txt
 
 EXPOSE 5001
 
