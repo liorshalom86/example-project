@@ -1,9 +1,6 @@
-CREATE TABLE IF NOT EXISTS counter (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    count INT DEFAULT 0
-);
+CREATE DATABASE IF NOT EXISTS db;
 
-INSERT INTO counter (count) VALUES (0);
+USE db;
 
 CREATE TABLE IF NOT EXISTS access_log (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -11,4 +8,12 @@ CREATE TABLE IF NOT EXISTS access_log (
     client_ip VARCHAR(50),
     internal_ip VARCHAR(50)
 );
+
+CREATE TABLE IF NOT EXISTS counter (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    count INT DEFAULT 0
+);
+
+INSERT INTO counter (count) VALUES (0);
+
 
